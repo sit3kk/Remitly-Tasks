@@ -3,7 +3,7 @@ import sys
 import logging
 
 logging.basicConfig(
-    filename="logs.log",
+    filename="logs/logs.log",
     level=logging.INFO,
     format="%(asctime)s:%(levelname)s:%(message)s",
 )
