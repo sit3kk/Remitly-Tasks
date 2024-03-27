@@ -42,3 +42,15 @@ def test_verify_policy_input_with_multiple_statements_without_asterix():
         os.path.dirname(__file__), "data", "test_data_6.json"
     )
     assert verify_policy_input(valid_file_path) is True
+
+
+def test_empty_file():
+    valid_file_path = os.path.join(
+        os.path.dirname(__file__), "data", "test_data_7.json"
+    )
+    assert verify_policy_input(valid_file_path) is True
+
+
+def test_invalid_path():
+    valid_file_path = os.path.join(os.path.dirname(__file__), "data", "123.json")
+    assert verify_policy_input(valid_file_path) is True
