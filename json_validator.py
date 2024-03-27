@@ -1,6 +1,10 @@
 import json
 import sys
 import logging
+import os
+
+if not os.path.exists("logs"):
+    os.makedirs("logs")
 
 logging.basicConfig(
     filename="logs/logs.log",
