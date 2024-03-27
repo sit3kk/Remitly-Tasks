@@ -1,5 +1,12 @@
 import json
 import sys
+import logging
+
+logging.basicConfig(
+    filename="logs.log",
+    level=logging.INFO,
+    format="%(asctime)s:%(levelname)s:%(message)s",
+)
 
 
 def verify_policy_input(file_path):
@@ -34,12 +41,13 @@ def verify_policy_input(file_path):
 
         return True
     except FileNotFoundError:
-        print("File not found")
+        logging.error("File not found: %s", file_path)
         return True
     except json.JSONDecodeError:
-        print("Incorrect JSON format")
+        logging.error("Incorrect JSON format in file: %s", file_path)
         return True
     except Exception as e:
+        logging.exception("An unexpected error occurred")
         return True
 
 
