@@ -40,8 +40,14 @@ def verify_policy_input(file_path):
                 statements = [statements]
 
             for statement in statements:
-                if statement.get("Resource", "") == "*":
-                    return False
+                resources = statement.get("Resource", "")
+
+                if not isinstance(resources, list):
+                    resources = [resources]
+
+                for resource in resources:
+                    if resource == "*":
+                        return False
 
         return True
     except FileNotFoundError:
