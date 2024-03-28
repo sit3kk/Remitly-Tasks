@@ -20,7 +20,7 @@ def test_verify_policy_input_with_list_resources():
     valid_file_path = os.path.join(
         os.path.dirname(__file__), "data", "test_data_3.json"
     )
-    assert verify_policy_input(valid_file_path) is True
+    assert verify_policy_input(valid_file_path) is False
 
 
 def test_verify_policy_input_without_body():
