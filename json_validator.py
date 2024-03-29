@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 
 
-def verify_policy_input(file_path):
+def verify_policy_input(file_path: str) -> bool:
     """
     Verify the JSON IAM policy file.
 
@@ -29,36 +29,35 @@ def verify_policy_input(file_path):
     Returns:
     - bool: False if any resource is a wildcard "*", True otherwise.
     """
-
+    
+    policy: dict
     try:
         with open(file_path, "r") as file:
             policy = json.load(file)
-
-            statements = policy.get("PolicyDocument", {}).get("Statement", [])
-
-            if not isinstance(statements, list):
-                statements = [statements]
-
-            for statement in statements:
-                resources = statement.get("Resource", "")
-
-                if not isinstance(resources, list):
-                    resources = [resources]
-
-                for resource in resources:
-                    if resource == "*":
-                        return False
-
-        return True
     except FileNotFoundError:
         logging.error("File not found: %s", file_path)
         return True
     except json.JSONDecodeError:
         logging.error("Incorrect JSON format in file: %s", file_path)
         return True
-    except Exception as e:
-        logging.exception("An unexpected error occurred")
-        return True
+
+    policy_doc: dict = policy.get("PolicyDocument", {})
+    statements = policy_doc.get("Statement", [])
+
+    if not isinstance(statements, list):
+        statements = [statements]
+
+    for statement in statements:
+        resources = statement.get("Resource", [])
+
+        if not isinstance(resources, list):
+            resources = [resources]
+
+        for resource in resources:
+            if resource == "*":
+                return False
+            
+    return True
 
 
 if __name__ == "__main__":
