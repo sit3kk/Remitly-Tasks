@@ -32,6 +32,12 @@ python json_validator.py C:\path\to\policy.json
 ```
 This will validate the specified IAM policy file and print the result to the console, indicating whether the policy contains any overly permissive wildcard permissions.
 
+
+## Example
+```bash
+python3 json_validator.py example.json
+```
+
 ## Running the Tests
 
 Ensure `pytest` is installed for running unit tests:
